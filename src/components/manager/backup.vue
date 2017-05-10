@@ -1,7 +1,7 @@
 <template>
 <div id="group">
     <div class="title">
-        <span>权限管理</span>
+        <span>备份管理</span>
         <div id="search">
           <span class="icon icon-search"></span>
           <input type="text" placeholder="search"/>
@@ -15,42 +15,48 @@
             style="width:100%;"
             highlight-current-row
             @current-change="handleCurrentChange"
-            >            
-          <el-table-column
-            property="role"
-            label="角色"
-            width="120">
-          </el-table-column>
-           <el-table-column
-            property="description"
-            label="角色描述"
-            width="300">
-          </el-table-column>
-           <el-table-column
-            property="operation"
-            label="权限"
             >
-            <template scope="scope">
-                <el-tag v-for="ii in scope.row.operation"  type="success" style="margin:5px;">
-                        {{ii}}
-                </el-tag>
-            </template>
+           <el-table-column
+            property="id"
+            label="名称"
+            width="100">
+          </el-table-column>
+           <el-table-column
+            property="source"
+            label="源节点"
+            >
+          </el-table-column>
+           <el-table-column
+            property="sdir"
+            label="源目录"
+            >
           </el-table-column>
           <el-table-column
-            property="users"
-            label="用户" >
-            <template scope="scope">
-                    <el-tag v-for="ii in scope.row.users"  type="primary" style="margin:5px;">
-                            {{ii}}
-                    </el-tag>
-            </template>
-            
-            
+            property="destination"
+            label="备份节点"
+            >
+          </el-table-column>
+           <el-table-column
+            property="ddir"
+            label="备份目录"
+            >
+          </el-table-column>
+          <el-table-column
+            property="strategy"
+            label="策略"
+            >
+          </el-table-column>
+          </el-table-column>
+           
+          <el-table-column
+            property="description"
+            label="描述"
+            >
           </el-table-column>
         </el-table>
         <div class="edit" v-bind:style="{position: 'absolute', right: '10px', top: '0px'}">
-            <span class="icon icon-edit" style="color: green;" v-on:click="showEdit"></span>
-            <span class="icon icon-trash" style="color: red;" ></span>
+            <span class="icon icon-edit" v-bind:class="{disabled:!currentRow}"  v-on:click="showEdit"></span>
+            <span class="icon icon-trash" v-bind:class="{disabled:!currentRow}"  ></span>
             <span class="icon icon-download-alt"></span>
              <span class="icon icon-plus" style="color: green;" v-on:click="showAdd"></span>
         </div>
@@ -67,42 +73,66 @@
         <form-add @hide="hideAdd"></form-add>
       </div>
     </transition>
-   
+    
 </div>
   
 </template>
 
 <script>
-  import FormEdit from './priority/edit'
-  import FormAdd from './priority/add'
+  import FormEdit from './backrestore/edit'
+  import FormAdd from './backrestore/add'
   export default {
     components:{
       FormEdit,
-      FormAdd,
+      FormAdd
     },
     data() {
       return {
         tableData3: [{
-          role: 'admin',
-          description: "general administrator",
-          operation: ['user', 'group', 'role', 'node', 'restore', 'view', 'log'],
-          users: ['admin', 'system', 'manager']
+            id: '001',
+            source: 'node01',
+            sdir: '/tmpxfs',
+            destination: 'node03',
+            ddir: '/root/',
+            strategy: '每天2：10：00',
+            description: 'node03 backup for node01'
         }, {
-          role: 'audit',
-          description: "system audit administrator",
-          operation: ['node', 'restore', 'view', 'log',],
-          users: ['visitor']
+            id: '002',
+            source: 'node02',
+            sdir: '/tmpxfs',
+            destination: 'node03',
+            ddir: '/root/',
+            strategy: '每天2：10：00',
+            description: 'node03 restore for node02'
         }, {
-          role: 'root',
-          description: "system administrator",
-          operation:['user', 'group', 'role', 'node', 'restore', 'view', 'log'],
-          users: ['system', 'admin']
+            id: '003',
+            source: 'node03',
+            sdir: '/tmpxfs',
+            destination: 'node04',
+            ddir: '/root/',
+            strategy: '每天2：10：00',
+            description: 'node04 backup for node03'
+        }, {
+            id: '004',
+            source: 'node06',
+            sdir: '/tmpxfs',
+            destination: 'node08',
+            ddir: '/root/',
+            strategy: '每天2：10：00',
+            description: 'node08 backup for node06'
+        }, {
+            id: '004',
+            source: 'node05',
+            sdir: '/tmpxfs',
+            destination: 'node09',
+            ddir: '/root/',
+            strategy: '每天2：10：00',
+            description: 'node09 restore for node05'
         }],
         top: 40,
         currentRow: null,
         addformshow: false,
         editformshow: false,
-        show_add_priority: true,
       }
     },
    
@@ -123,6 +153,9 @@
          
       // },
       showEdit: function(){
+          if (!this.currentRow) {
+              return;
+          }
         this.editformshow = true;
       },
        hideEdit: function(){
@@ -136,7 +169,7 @@
       },
       handleCurrentChange(val) {
         this.currentRow = val;
-      },
+      }
     }
   }
 </script>
@@ -191,7 +224,6 @@
        right: 0;
        bottom: 0;
        z-index: 2000;
-       overflow-y: auto;
      }
      .useropt .subtitle{
        text-align: center;
@@ -200,7 +232,7 @@
      .useropt .form {
        margin-left: 50px;
      }
-     
+    
      span.button{
        border: solid rgb(36, 147, 110) 1px;
        display: block;
@@ -240,10 +272,43 @@
      .formshow-leave-active {
        animation: fold-out 0.5s;
      }
-    span.group-item{
-        border: solid 1px rgb(36, 147, 110);
-
+    @keyframes fold-in {
+      0% {
+        position: absolute;
+        right: -400px;
+      }
+      
+      100% {
+        position: absolute;
+        right: 0;
+      }
     }
-   
+      @keyframes fold-out {
+        0% {
+        position: absolute;
+          right: 0;
+        }
+        100%{
+        position: absolute;
+          right: -400px;
+        }
+      }
+     span.icon.icon-edit {
+        color: green;
+    }
+    span.icon.icon-edit.disabled {
+    color: gray;
+    cursor: auto;
+    }
+    span.icon.disabled:hover{
+        font-weight: normal;
+    }
+    span.icon.icon-trash {
+        color: red;
+    }
+    span.icon.icon-trash.disabled {
+        color: gray;
+        cursor: auto;
+    }
 </style>
 

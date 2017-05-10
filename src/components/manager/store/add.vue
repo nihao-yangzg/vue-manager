@@ -1,33 +1,25 @@
 <template>
     <div>
-        <div class="subtitle">用户编辑</div>
+        <div class="subtitle">添加存储设置</div>
         <div class="form" action="">
+            
             <div class="form-control">
-            <label for="username">用户名</label>
-            <input type="text" name="username" placeholder="username">
+                <label for="hostname">节点名</label>
+                <input type="text" name="hostname" placeholder="server hostname">
             </div>
             <div class="form-control">
-            <label for="password">登录密码</label>
-            <input type="password" name="password" placeholder="password">
+                <label for="ip">ip地址</label>
+                <input type="text" name="ip" placeholder="ip address">
             </div>
             <div class="form-control">
-                <label for="description">用户描述</label>
-                <textarea type="text" name="description" placeholder="description"/>
+                <label for="type">节点类型</label>
+                <input type="text" name="type" placeholder="server type"/>
             </div>
             <div class="form-control">
-            <label for="description">所属组</label>
-            <input type="text" name="description" placeholder="group"/>
+                <label for="dir">目录</label>
+                <input type="text" name="dir" placeholder="storage dir">
             </div>
-            <div class="form-control">
-            <label for="shell">用户权限</label>
-            <el-select v-model="value5" multiple placeholder="请选择" >
-                <el-option
-                v-for="item in options"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
-            </div>
+         
             <div class="bottom">
             <span class="button" @click="hideEdit">取消</span>
             <span class="button submit">提交</span>
@@ -43,46 +35,19 @@
             return {
                 options: [{
                     value: '选项1',
-                    label: 'user:wr'
+                    label: '黄金糕'
                     }, {
                     value: '选项2',
-                    label: 'user:r'
+                    label: '双皮奶'
                     }, {
                     value: '选项3',
-                    label: 'group:w'
+                    label: '蚵仔煎'
                     }, {
                     value: '选项4',
-                    label: 'group:r'
+                    label: '龙须面'
                     }, {
                     value: '选项5',
-                    label: 'role:w'
-                    }, {
-                    value: '选项2',
-                    label: 'role:r'
-                    }, {
-                    value: '选项3',
-                    label: 'node:w'
-                    }, {
-                    value: '选项4',
-                    label: 'node:r'
-                    }, {
-                    value: '选项5',
-                    label: 'restore:w'
-                    }, {
-                    value: '选项6',
-                    label: 'restore:r'
-                    }, {
-                    value: '选项7',
-                    label: 'restore:x'
-                    }, {
-                    value: '选项8',
-                    label: 'view:w'
-                    }, {
-                    value: '选项9',
-                    label: 'view:r'
-                    }, {
-                    value: '选项9',
-                    label: 'log:r'
+                    label: '北京烤鸭'
                     }],
                 value5: [],
             }
@@ -115,7 +80,7 @@
        margin-right: 10px;
        line-height: 35px;
      }
-      div.form-control input{
+     div.form-control input{
          height: 25px;
           width: 200px;
      }
@@ -140,6 +105,9 @@
      }
      div.form-control textarea {
          resize: none;
+     }
+     div.form-control input[disabled="disabled"] {
+        border-color: gray;
      }
      span.button{
        border: solid rgb(36, 147, 110) 1px;

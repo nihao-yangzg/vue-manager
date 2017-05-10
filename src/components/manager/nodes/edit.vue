@@ -1,25 +1,18 @@
 <template>
     <div>
-        <div class="subtitle">添加用户组</div>
+        <div class="subtitle">节点编辑</div>
         <div class="form" action="">
-            
             <div class="form-control">
-            <label for="username">组名</label>
-            <input type="text" name="username" placeholder="username">
+                <label for="hostname">节点名</label>
+                <input type="text" name="hostname" disabled='disabled'>
             </div>
             <div class="form-control">
-            <label for="description">组描述</label>
-            <textarea type="text" name="description" placeholder="description"/>
+            <label for="ip">IP地址</label>
+            <input type="text" name="ip" placeholder="username">
             </div>
             <div class="form-control">
-            <label for="shell">组权限</label>
-            <el-select v-model="value5" multiple placeholder="请选择" >
-                <el-option
-                v-for="item in options"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
+            <label for="description">说明</label>
+            <textarea type="text" name="description" placeholder="user description"/>
             </div>
             <div class="bottom">
             <span class="button" @click="hideEdit">取消</span>
@@ -34,50 +27,7 @@
     export default {
         data(){
             return {
-                options: [{
-                     value: '选项1',
-                    label: 'user:wr'
-                    }, {
-                    value: '选项2',
-                    label: 'user:r'
-                    }, {
-                    value: '选项3',
-                    label: 'group:w'
-                    }, {
-                    value: '选项4',
-                    label: 'group:r'
-                    }, {
-                    value: '选项5',
-                    label: 'role:w'
-                    }, {
-                    value: '选项2',
-                    label: 'role:r'
-                    }, {
-                    value: '选项3',
-                    label: 'node:w'
-                    }, {
-                    value: '选项4',
-                    label: 'node:r'
-                    }, {
-                    value: '选项5',
-                    label: 'restore:w'
-                    }, {
-                    value: '选项6',
-                    label: 'restore:r'
-                    }, {
-                    value: '选项7',
-                    label: 'restore:x'
-                    }, {
-                    value: '选项8',
-                    label: 'view:w'
-                    }, {
-                    value: '选项9',
-                    label: 'view:r'
-                    }, {
-                    value: '选项9',
-                    label: 'log:r'
-                    }],
-                value5: [],
+                nouse: null
             }
         },
         methods: {
@@ -108,6 +58,7 @@
        margin-right: 10px;
        line-height: 35px;
      }
+
      div.form-control input{
          height: 25px;
           width: 200px;

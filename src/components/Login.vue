@@ -7,11 +7,19 @@
         <div class="contents">
             <div class="content">
                 <span class="icon icon-user"></span>
-                <input type="text" placeholder="username" autofocus="autofocus">
+                <input type="text" placeholder="用户名" autofocus="autofocus">
             </div>
             <div class="content">
                 <span class="icon icon-key"></span>
-                <input type="password" placeholder="password">
+                <input type="password" placeholder="密码">
+            </div>
+            <div class="content" style="text-align:left;">
+                <span class="icon icon-flag"></span>
+                
+                <input type="text" placeholder="验证码" style="width: 100px; float:none;">
+                <div style="width:120px; float:right; height: 30px;  margin: 3px; padding: 2px; border:solid 1px #dfdfdf;">
+                    <img src="/static/image/checkcode.jpg" alt="" style="width:100%; height: 30px;">
+                </div>
             </div>
             <div class="button">
                 <!--button>LOGIN</button-->
@@ -28,7 +36,7 @@
         }, 
         methods: {
             login: function(){
-                this.$router.push({ path: '/index/user'});
+                this.$router.push({ path: '/index/dashboard'});
             }
         }
     }

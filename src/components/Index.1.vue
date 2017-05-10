@@ -11,62 +11,52 @@
         </div>
         <div class="sidebar">
             <ul id="sidebars">
-                <li class="ignore">
-                    <span>系统概览</span>
-                </li>
-                <li @click="selectItem($event, 'dashboard')" v-bind:class="{active: selected=='dashboard'}">
-                    <span class="icon icon-dashboard"></span>
-                    <span class="item">概览</span>
-                </li>
+                <div v-if="sidebars"></div>
                 <li class="ignore">
                     <span>系统管理</span>
-                </li>            
-                <li @click="selectItem($event, 'user')" v-bind:class="{active: selected=='user'}">
+                </li>          
+                <li @click="selectItem($event, 'user')" route="user">
                     <span class="icon icon-user"></span>
                     <span class="item">用户管理</span>
                 </li>
-                <!--li @click="selectItem($event, 'group')" v-bind:class="{active: selected=='group'}">
+                <li @click="selectItem($event, 'group')" route="group">
                     <span class="icon icon-group"></span>
                     <span class="item">用户组管理</span>
-                </li-->
-                <li @click="selectItem($event, 'priority')" v-bind:class="{active: selected=='priority'}">
+                </li>
+                <li @click="selectItem($event, 'priority')" route="priority">
                     <span class="icon icon-magic"></span>
                     <span class="item">权限管理</span>
                 </li>
                 <li class="ignore">
                     <span>备份管理</span>
                 </li>
-                <li @click="selectItem($event, 'store')" v-bind:class="{active: selected=='store'}">
+                <li @click="selectItem($event, 'store')" route="store">
                     <span class="icon icon-save"></span>
                     <span class="item">存储管理</span>
                 </li>
-                <li @click="selectItem($event, 'strategy')" v-bind:class="{active: selected=='strategy'}">
+                <li @click="selectItem($event, 'strategy')" route="strategy">
                     <span class="icon icon-tags"></span>
                     <span class="item">策略管理</span>
                 </li>
-                <li @click="selectItem($event, 'nodes')" v-bind:class="{active: selected=='nodes'}">
+                <li @click="selectItem($event, 'nodes')" route="nodes">
                     <span class="icon icon-magnet"></span>
                     <span class="item">节点管理</span>
                 </li>
-                <li @click="selectItem($event, 'backup')" v-bind:class="{active: selected=='backup'}">
-                    <span class="icon icon-random"></span>
-                    <span class="item">备份</span>
-                </li>
-                 <li @click="selectItem($event, 'restore')" v-bind:class="{active: selected=='restore'}">
-                    <span class="icon icon-reply"></span>
-                    <span class="item">还原</span>
+                <li @click="selectItem($event, 'backrestore')" route="backrestore">
+                    <span class="icon  icon-random"></span>
+                    <span class="item">备份与还原</span>
                 </li>
                 <li class="ignore">
                     <span>日志</span>
                 </li>
-                <li @click="selectItem($event, 'log')" v-bind:class="{active: selected=='log'}">
+                <li @click="selectItem($event, 'log')" route="log">
                     <span class="icon  icon-file-alt"></span>
                     <span class='item'>日志查看</span>
                 </li>
                 <li class="ignore">
                     <span>报表</span>
                 </li>
-                <li @click="selectItem($event, 'views')" v-bind:class="{active: selected=='views'}">
+                <li @click="selectItem($event, 'views')" route="views">
                     <span class="icon icon-table"></span>
                     <span class="item">报表管理</span>                    
                 </li>
@@ -80,10 +70,10 @@
 <script>
     export default {
         data: function(){
-            
             return {
-                sidebars: {
-                    manager: [
+                sidebars: [{
+                    category: 'manager',
+                    values: [
                         {
                             name: '用户管理',
                             isActive: true,
@@ -102,8 +92,9 @@
                             icon: '',
                             route: 'priority'
                         }
-                    ],
-                    store: [
+                    ]},{
+                    category: 'store',
+                    values: [
                         {
                             name: '存储管理',
                             isActive: false,
@@ -128,62 +119,67 @@
                             icon: '',
                             route: 'backrestore'
                         }
-                    ],
-                    views: [
-                        {
-                            name: '报表',
-                            isActive: false,
-                            icon: '',
-                            route: 'views'
-                        }
-                    ],
-                    logs: [
-                        {
-                            name: '日志',
-                            isActive: false,
-                            icon: '',
-                            route: 'log'
-                        }
-                    ]
-                },
-                activeItem: null,
-                selected: 'user'
+                    ]}, {
+                        category:'views',
+                        values: [
+                            {
+                                name: '报表',
+                                isActive: false,
+                                icon: '',
+                                route: 'log'
+                            }
+                    ]}, {
+                        category: 'logs',
+                        values: [
+                            {
+                                name: '日志',
+                                isActive: false,
+                                icon: '',
+                                route: 'log'
+                            }
+                    ]}
+                ];
+                }
             }
         },
         methods: {
             selectItem: function(e, route){
                 this.$router.push({path: '/index/' + route});
-                this.selected = route;
-                // let parent = document.getElementById("sidebars");
-                // let sblings = parent.children;
-                // for (let item of sblings) {
-                //     var classes = item.className;
-                //     if (classes.indexOf('active') >= 0) {
-                //         classes = classes.replace('active', '');
-                //     }
-                //     item.className = classes;
-                //     // removeClass(item, 'active');
-                // }
-                // if (e.target.tagName == 'LI'){
-                //     e.target.className = "active";
-                // } else {
-                //     e.target.parentNode.className='active';
-                // }
-                // console.log(sblings);
+                let parent = document.getElementById("sidebars");
+                console.log(parent);
+                let sblings = parent.children;
+                for (let item of sblings) {
+                    var classes = item.className;
+                    if (classes.indexOf('active') >= 0) {
+                        classes = classes.replace('active', '');
+                    }
+                    item.className = classes;
+                    // removeClass(item, 'active');
+                }
+                if (e.target.tagName == 'LI'){
+                    e.target.className = "active";
+                } else {
+                    e.target.parentNode.className='active';
+                }
+                console.log(sblings);
             },
             logout: function(){
                 this.$router.push({path: '/'});
             },
-            
-        },
-        created: function(){
-                let path = this.$route.path;
+            created: function(){
+                let path = this.$router.path;
                 let items = path.split('/')
                 let route = items[items.length-1];
-                this.selected = route;
-                console.log(this.activeItem);
-                
-       }
+                let lists = document.getElementsByTag("LI");
+                for (item of lists) {
+                    if (item.getAttribute('route') == route) {
+                        item.className = 'active';
+                        break;
+                    }
+                }
+                console.log('created.');
+            }
+        },
         
     }
 </script>
@@ -223,7 +219,6 @@
         bottom: 0;
         background-color:#efefef;
         font-size: 14px;
-        overflow:hidden;
     
     }
     .sidebar ul{

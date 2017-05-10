@@ -17,25 +17,39 @@
             @current-change="handleCurrentChange"
             >
             <el-table-column
-            property="date"
-            label="日期"
+            property="username"
+            label="用户名"
             width="120">
           </el-table-column>
-          <el-table-column
-            property="name"
-            label="姓名"
-            width="120">
+          
+          
+           <el-table-column
+            property="priority"
+            label="角色" >
+            <template scope="scope">
+               <el-tag v-for="ii in scope.row.priority"  type="primary" style="margin:5px;">
+                         {{ii}}
+               </el-tag>
+            </template>
+            
+            
           </el-table-column>
           <el-table-column
-            property="address"
-            label="地址">
+            property="mailbox"
+            label="邮箱"
+            width="240">
+          </el-table-column>
+          <el-table-column
+            property="description"
+            label="描述"
+            >
           </el-table-column>
         </el-table>
         <div class="edit" v-bind:style="{position: 'absolute', right: '10px', top: '0px'}">
-            <span class="icon icon-edit" style="color: green;" v-on:click="showEdit"></span>
-            <span class="icon icon-trash" style="color: red;" ></span>
-            <span class="icon icon-download-alt"></span>
             <span class="icon icon-plus" style="color: green;" v-on:click="showAdd"></span>
+            <span class="icon icon-edit"  v-bind:class="{disabled:!currentRow}" v-on:click="showEdit"></span>
+            <span class="icon icon-download-alt" v-on:click="showExportForm"></span>
+            <span class="icon icon-trash"  v-bind:class="{disabled:!currentRow}" v-on:click="deleteuser" ></span>
         </div>
         
     </div>
@@ -50,7 +64,15 @@
         <form-add @hide="hideAdd"></form-add>
       </div>
     </transition>
+    <div v-if='showDelete'>
+        <delete-modal></delete-modal>
     
+    </div>
+    <transition name="formshow">
+      <div v-if='showExport' class="useropt">
+        <export v-on:hide="hideExport"></export>
+      </div>
+    </transition>
 </div>
   
 </template>
@@ -58,46 +80,66 @@
 <script scoped>
   import FormEdit from './user/edit'
   import FormAdd from './user/add'
+  import DeleteModal from './delete.vue'
+  import Export from './export.vue'
   export default {
     components:{
       FormEdit,
-      FormAdd
+      FormAdd,
+      DeleteModal,
+      Export,
     },
     data() {
       return {
         tableData3: [{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          username: 'user1',
+          description: 'plain user',
+          mailbox: 'user1@ttt.com',
+          priority: ['store', 'strategy', 'view', 'log', 'nodes', 'backandrestore'],
+          
         }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          username: 'user2',
+          description: 'administrator',
+          mailbox: 'user1@ttt.com',
+          priority: ['user', 'group', 'prority', 'store', 'strategy', 'view', 'log', 'nodes', 'backandrestore']
         }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          username: 'user3',
+          description: 'plain user',
+          mailbox: 'user1@ttt.com',
+          priority: ['nodes', 'backandrestore', 'view', 'log']
         }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          username: 'user2',
+          description: 'plain user',
+          mailbox: 'user1@ttt.com',
+          priority: ['nodes', 'backandrestore', 'view', 'log']
         }, {
-          date: '2016-05-08',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          username: 'user4',
+          description: 'plain user',
+          mailbox: 'user1@ttt.com',
+          priority: ['nodes', 'backandrestore', 'view', 'log']
         }, {
-          date: '2016-05-06',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          username: 'user5',
+          description: 'plain user',
+          mailbox: 'user1@ttt.com',
+          priority: ['nodes', 'backandrestore', 'view', 'log']
         }, {
-          date: '2016-05-07',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          username: 'user6',
+          description: 'plain user',
+          mailbox: 'user1@ttt.com',
+          priority: ['nodes', 'backandrestore', 'view', 'log']
         }],
+        details: {
+          username: 'user3', 
+          mailbox: 'user3@ttt.com',
+          priority: ['nodes', 'backandrestore', 'view', 'log'],
+          opritions:['add strategy']
+        },
         top: 40,
         currentRow: null,
         addformshow: false,
         editformshow: false,
+        showDelete: false,
+        showExport: false,
       }
     },
    
@@ -117,7 +159,25 @@
       //     this.top = 0;
          
       // },
+      showExportForm: function(){
+          this.showExport = true;
+      },
+      hideExport: function(){
+          this.showExport = false;
+      },
+      deleteuser: function(){
+         this.$msgbox({
+          title: '删除提示',
+          message: '是否确认删除此条目',
+          showCancelButton: true,
+          confirmButtonText: '是',
+          cancelButtonText: '否'
+         });
+      },
       showEdit: function(){
+        if (!this.currentRow){
+          return;
+        }
         this.editformshow = true;
       },
        hideEdit: function(){
@@ -145,7 +205,7 @@
         height: 30px;
         line-height:30px;
         padding: 10px 20px;
-        margin: 20px 20px;
+        margin: 10px 20px;
         background-color:  rgb(36,147,110);
     }
     #search {
@@ -231,13 +291,28 @@
   
   }
   div.form-control input{
-          height: 25px;
           width: 200px;
           background: white;
           border:solid 1px;
           border-color: rgba(12,72,66,0.5);
-          
           padding: 4px 5px;
-               
      }
+
+           span.icon.icon-edit {
+        color: green;
+    }
+    span.icon.icon-edit.disabled {
+    color: gray;
+    cursor: auto;
+    }
+    span.icon.disabled:hover{
+        font-weight: normal;
+    }
+    span.icon.icon-trash {
+        color: red;
+    }
+    span.icon.icon-trash.disabled {
+        color: gray;
+        cursor: auto;
+    }
 </style>

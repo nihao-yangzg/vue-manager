@@ -1,32 +1,28 @@
 <template>
     <div>
-        <div class="subtitle">用户编辑</div>
+        <div class="subtitle">添加用户组</div>
         <div class="form" action="">
             <div class="form-control">
-            <label for="username">用户名</label>
-            <input type="text" name="username" placeholder="username">
+                <label for="cicle">周期</label>
+                <el-select v-model="value5" placeholder="请选择">
+                    <el-option
+                    v-for="item in options"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                </el-select>
             </div>
             <div class="form-control">
-            <label for="password">登录密码</label>
-            <input type="password" name="password" placeholder="password">
+                <label for="strategy">策略</label>
+                <input type="text" name="strategy" placeholder="请输入策略">
+                <div style="font-size:10px; margin-left: 90px;">如 * * 12:00:00 代表每天12:00:00执行<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp; 4th * 12:00:00 代表每月4日12:00:00执行<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp; * Mon 12:00:00 代表每周一12:00:00执行</div>
+                
             </div>
             <div class="form-control">
-                <label for="description">用户描述</label>
+                <label for="description">策略描述</label>
                 <textarea type="text" name="description" placeholder="description"/>
-            </div>
-            <div class="form-control">
-            <label for="description">所属组</label>
-            <input type="text" name="description" placeholder="group"/>
-            </div>
-            <div class="form-control">
-            <label for="shell">用户权限</label>
-            <el-select v-model="value5" multiple placeholder="请选择" >
-                <el-option
-                v-for="item in options"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
             </div>
             <div class="bottom">
             <span class="button" @click="hideEdit">取消</span>
@@ -42,49 +38,22 @@
         data(){
             return {
                 options: [{
-                    value: '选项1',
-                    label: 'user:wr'
+                   value: '选项1',
+                    label: 'Month'
                     }, {
                     value: '选项2',
-                    label: 'user:r'
+                    label: 'Week'
                     }, {
                     value: '选项3',
-                    label: 'group:w'
+                    label: 'Day'
                     }, {
                     value: '选项4',
-                    label: 'group:r'
+                    label: 'Hour'
                     }, {
                     value: '选项5',
-                    label: 'role:w'
-                    }, {
-                    value: '选项2',
-                    label: 'role:r'
-                    }, {
-                    value: '选项3',
-                    label: 'node:w'
-                    }, {
-                    value: '选项4',
-                    label: 'node:r'
-                    }, {
-                    value: '选项5',
-                    label: 'restore:w'
-                    }, {
-                    value: '选项6',
-                    label: 'restore:r'
-                    }, {
-                    value: '选项7',
-                    label: 'restore:x'
-                    }, {
-                    value: '选项8',
-                    label: 'view:w'
-                    }, {
-                    value: '选项9',
-                    label: 'view:r'
-                    }, {
-                    value: '选项9',
-                    label: 'log:r'
+                    label: 'Minute'
                     }],
-                value5: [],
+                value5: null,
             }
         },
         methods: {
@@ -115,12 +84,12 @@
        margin-right: 10px;
        line-height: 35px;
      }
-      div.form-control input{
+     div.form-control input{
          height: 25px;
-          width: 200px;
+          width: 188px;
      }
      div.form-control textarea {
-         width: 200px;
+         width: 188px;
          height: 150px;
      }
      div.form-control input,div.form-control textarea {
@@ -140,6 +109,9 @@
      }
      div.form-control textarea {
          resize: none;
+     }
+     div.form-control input[disabled="disabled"] {
+        border-color: gray;
      }
      span.button{
        border: solid rgb(36, 147, 110) 1px;

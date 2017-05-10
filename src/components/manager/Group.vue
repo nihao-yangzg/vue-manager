@@ -16,24 +16,29 @@
             highlight-current-row
             @current-change="handleCurrentChange"
             >
-            <el-table-column
-            property="date"
-            label="日期"
-            width="120">
-          </el-table-column>
-          <el-table-column
+           <el-table-column
             property="name"
-            label="姓名"
+            label="组名"
             width="120">
           </el-table-column>
+           <el-table-column
+            property="priority"
+            label="权限" >
+            <template scope="scope">
+               <el-tag v-for="ii in scope.row.priority"  type="primary" style="margin:5px;">
+                         {{ii}}
+               </el-tag>
+            </template>
+          </el-table-column>
           <el-table-column
-            property="address"
-            label="地址">
+            property="description"
+            label="描述"
+            >
           </el-table-column>
         </el-table>
         <div class="edit" v-bind:style="{position: 'absolute', right: '10px', top: '0px'}">
-            <span class="icon icon-edit" style="color: green;" v-on:click="showEdit"></span>
-            <span class="icon icon-trash" style="color: red;" ></span>
+            <span class="icon icon-edit" v-bind:class="{disabled:!currentRow}" v-on:click="showEdit"></span>
+            <span class="icon icon-trash" v-bind:class="{disabled:!currentRow}" ></span>
             <span class="icon icon-download-alt"></span>
              <span class="icon icon-plus" style="color: green;" v-on:click="showAdd"></span>
         </div>
@@ -66,33 +71,21 @@
     data() {
       return {
         tableData3: [{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          name: 'plain',
+          priority: ['node:wr', 'restore:wrx', 'view:wr', 'log:r'],
+          description: 'plain user group'
         }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          name: 'admin',
+          priority: ['user:wr', 'group:wr', 'role:wr', 'node:wr', 'restore:wrx', 'view:wr', 'log:r'],
+          description: 'system administrator'
         }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          name: 'root',
+          priority: ['user:wr', 'group:wr', 'role:wr', 'node:wr', 'restore:wrx', 'view:wr', 'log:r'],
+          description: 'system root'
         }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-08',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-06',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          name: 'guest',
+          priority: ['node:r', 'restore:r', 'view:r', 'log:r'],
+          description: 'system guest'
         }],
         top: 40,
         currentRow: null,
@@ -118,6 +111,9 @@
          
       // },
       showEdit: function(){
+        if(!this.currentRow ){
+          return;
+        }
         this.editformshow = true;
       },
        hideEdit: function(){
@@ -145,7 +141,7 @@
         height: 30px;
         line-height:30px;
         padding: 10px 20px;
-        margin: 20px 20px;
+        margin: 10px 20px;
         background-color:  rgb(36,147,110);
     }
      #search {
@@ -194,36 +190,7 @@
      .useropt .form {
        margin-left: 50px;
      }
-     div.form-control {
-       width: 400px;
-       margin-bottom: 20px;
-       
-      
-     }
-     div.form-control label {
-       width: 80px;
-       display: block;
-       float: left;
-       margin-right: 10px;
-       line-height: 35px;
-     }
-     div.form-control input{
-          height: 25px;
-          width: 200px;
-          background: white;
-          border:solid 1px;
-          border-color: rgba(12,72,66,0.5);
-          
-          padding: 4px 5px;
-               
-     }
-     div.form-control input:focus{
-          border-color: rgba(12,72,66,1);
-          box-shadow:0 0 3px rgba(12,72,66,1);
-          transition: border-color 0.35s ease-in-out 0s;
-          transition: box-shadow 0.35s ease-in-out 0s;
-     }
-
+     
      span.button{
        border: solid rgb(36, 147, 110) 1px;
        display: block;
@@ -284,6 +251,22 @@
           right: -400px;
         }
       }
-     
+          span.icon.icon-edit {
+        color: green;
+    }
+    span.icon.icon-edit.disabled {
+    color: gray;
+    cursor: auto;
+    }
+    span.icon.disabled:hover{
+        font-weight: normal;
+    }
+    span.icon.icon-trash {
+        color: red;
+    }
+    span.icon.icon-trash.disabled {
+        color: gray;
+        cursor: auto;
+    }
 </style>
 

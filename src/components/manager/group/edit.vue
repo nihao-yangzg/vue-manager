@@ -1,7 +1,11 @@
 <template>
     <div>
-        <div class="subtitle">添加用户组</div>
+        <div class="subtitle">用户组编辑</div>
         <div class="form" action="">
+            <div class="form-control">
+                <label for="groupid">组ID</label>
+                <input type="text" name="groupid" disabled='disabled'>
+            </div>
             <div class="form-control">
             <label for="username">组名</label>
             <input type="text" name="username" placeholder="username">
@@ -35,19 +39,46 @@
             return {
                 options: [{
                     value: '选项1',
-                    label: '黄金糕'
+                    label: 'user:wr'
                     }, {
                     value: '选项2',
-                    label: '双皮奶'
+                    label: 'user:r'
                     }, {
                     value: '选项3',
-                    label: '蚵仔煎'
+                    label: 'group:w'
                     }, {
                     value: '选项4',
-                    label: '龙须面'
+                    label: 'group:r'
                     }, {
                     value: '选项5',
-                    label: '北京烤鸭'
+                    label: 'role:w'
+                    }, {
+                    value: '选项2',
+                    label: 'role:r'
+                    }, {
+                    value: '选项3',
+                    label: 'node:w'
+                    }, {
+                    value: '选项4',
+                    label: 'node:r'
+                    }, {
+                    value: '选项5',
+                    label: 'restore:w'
+                    }, {
+                    value: '选项6',
+                    label: 'restore:r'
+                    }, {
+                    value: '选项7',
+                    label: 'restore:x'
+                    }, {
+                    value: '选项8',
+                    label: 'view:w'
+                    }, {
+                    value: '选项9',
+                    label: 'view:r'
+                    }, {
+                    value: '选项9',
+                    label: 'log:r'
                     }],
                 value5: [],
             }

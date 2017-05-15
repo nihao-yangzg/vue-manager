@@ -12,7 +12,7 @@
             <span class="icon icon-edit" style="color: green;" v-on:click="showEdit"></span>
         </div>
         <div  class='button-group'>
-            <span class="icon icon-trash" style="color: red;" ></span>
+            <span class="icon icon-trash" style="color: red;" @click="deleteStrategy"></span>
         </div>
        <div  class='button-group'>
              <span class="icon icon-magnet"></span>
@@ -22,7 +22,14 @@
             <span class="icon icon-download-alt"></span>
         </div>
         <div  class='button-group'>
+            <el-upload
+            class="upload-demo"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :file-list="fileList">
              <span class="icon icon-upload-alt"></span>
+             </el-upload>
         </div>
        
         
@@ -191,6 +198,22 @@
       },
       handleCurrentChange(val) {
         this.currentRow = val;
+      },
+      deleteStrategy: function(){
+        this.$confirm('确定要删除该策略吗?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+            }).then(() => {
+            }).catch(() => {
+
+            });
+      },
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePreview(file) {
+        console.log(file);
       }
     }
   }

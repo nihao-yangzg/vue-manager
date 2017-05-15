@@ -3,11 +3,11 @@
         <div class="subtitle">策略编辑</div>
         <div class="form" action="">
             <div class="form-control">
-                <label for="strategyid">测量ID</label>
-                <input type="text" name="strategyid" disabled='disabled'>
+                <label for="strategyid">策略名</label>
+                <input type="text" name="strategyid">
             </div>
             <div class="form-control">
-                <label for="cicle">周期</label>
+                <label for="object">对象</label>
                 <el-select v-model="value5" placeholder="请选择">
                     <el-option
                     v-for="item in options"
@@ -16,13 +16,25 @@
                     </el-option>
                 </el-select>
             </div>
+              <div class="form-control">
+                <label for="media">介质</label>
+                <el-select v-model="value6" placeholder="请选择">
+                    <el-option
+                    v-for="item in medias"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                </el-select>
+            </div>
             <div class="form-control">
                 <label for="strategy">策略</label>
                 <input type="text" name="strategy" placeholder="请输入策略">
-                <div style="font-size:10px; margin-left: 90px;">如 * * 12:00:00 代表每天12:00:00执行<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp; 4th * 12:00:00 代表每月4日12:00:00执行<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp; * Mon 12:00:00 代表每周一12:00:00执行</div>
+                <div style="font-size:10px; margin-left: 90px;">如 * * 12:00:00 代表每天12:00:00执行</div>
                 
+            </div>
+            <div class="form-control">
+                <label for="days">保存天数</label>
+                <input type="text" name="days" placeholder="expire days"/>
             </div>
             <div class="form-control">
                 <label for="description">策略描述</label>
@@ -43,21 +55,26 @@
             return {
                 options: [{
                     value: '选项1',
-                    label: 'Month'
+                    label: 'file'
                     }, {
                     value: '选项2',
-                    label: 'Week'
+                    label: 'database'
                     }, {
                     value: '选项3',
-                    label: 'Day'
+                    label: 'system'
                     }, {
                     value: '选项4',
-                    label: 'Hour'
+                    label: 'column'
+                    }],
+                    medias:[{
+                    value: '选项1',
+                    label: 'disk'
                     }, {
-                    value: '选项5',
-                    label: 'Minute'
+                    value: '选项2',
+                    label: 'tape'
                     }],
                 value5: null,
+                value6: null,
             }
         },
         methods: {

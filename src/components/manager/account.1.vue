@@ -1,43 +1,55 @@
 <template>
 <div id="group">
     <div class="title">
-        <span>存储管理</span>
+        <span>用户组管理</span>
         <div id="search">
           <span class="icon icon-search"></span>
           <input type="text" placeholder="search"/>
         </div>
     </div>
     <div class="content">
-        <el-table
-            :data="tableData3"
-            border
-            tooltip-effect="dark"
-            style="width:100%;"
-            highlight-current-row
-            @current-change="handleCurrentChange"
-            >
-            <el-table-column
-            property="hostname"
-            label="节点名"
-            >
-          </el-table-column>
-          <el-table-column
-            property="ip"
-            label="ip地址"
-            >
-          </el-table-column>
-          <el-table-column
-            property="port"
-            label="端口">
-          </el-table-column>
-          <el-table-column
-            property="dir"
-            label="目录">
-          </el-table-column>
-        </el-table>
+       <div class="item">
+            <div class="title1">
+                <span>上次登录信息</span>
+            </div>
+            <div class="acount-content">
+                <div class="title2">
+                    登录时间
+                </div>
+                <div>
+                    {{account.time}}
+                </div>
+                <div class="title2">
+                    客户端信息
+                </div>
+                <div>
+                    {{account.terminal}}
+                </div>
+                <div class="title2">
+                    
+                </div>
+            </div>
+       </div>
+       <div class="item">
+            <div class="title1">
+                <span>账户异常情况</span>
+            </div>
+            <div class="account-content">
+                <div class="title2">
+                    上次会话结束后登录重试次数
+                </div>
+                <div>{{account.tries}}</div>
+            </div>
+       <div class="item">
+            <div class="title1">本会话有效期</div>
+            <div class="account-content">
+                <div class="title2">有效期</div>
+                <div>{{account.expiredate}}</div>
+            </div>
+        </div>
         <div class="edit" v-bind:style="{position: 'absolute', right: '10px', top: '0px'}">
-            <span class="icon icon-edit" style="color: green;" v-on:click="showEdit"></span>
-            <span class="icon icon-trash" style="color: red;" ></span>
+            <span class="icon icon-edit" v-bind:class="{disabled:!currentRow}" v-on:click="showEdit"></span>
+            <span class="icon icon-trash" v-bind:class="{disabled:!currentRow}" ></span>
             <span class="icon icon-download-alt"></span>
              <span class="icon icon-plus" style="color: green;" v-on:click="showAdd"></span>
         </div>
@@ -60,8 +72,8 @@
 </template>
 
 <script>
-  import FormEdit from './store/edit'
-  import FormAdd from './store/add'
+  import FormEdit from './group/edit'
+  import FormAdd from './group/add'
   export default {
     components:{
       FormEdit,
@@ -69,50 +81,14 @@
     },
     data() {
       return {
-        tableData3: [{
-          hostname: 'node01',
-          ip: '1.2.3.4',
-          type: 'physical node',
-          port: '1234',
-          dir: '/root/tmp'
-
-        }, {
-          hostname: 'node02',
-          ip: '1.2.3.4',
-          port: '1234',
-          type: 'SAN',
-          dir: '/root/backup'
-        }, {
-          hostname: 'node03',
-          ip: '1.2.3.4',
-          port: '1234',
-          type: 'vitural machine',
-          dir: '/'
-        }, {
-          hostname: 'node04',
-          ip: '1.2.3.4',
-          port: '1234',
-          type: 'NAS',
-          dir: '/root/tmp'
-        }, {
-          hostname: 'node05',
-          ip: '1.2.3.4',
-          port: '1234',
-          type: 'physical node',
-          dir: '/home/node'
-        }, {
-          hostname: 'node06',
-          ip: '1.2.3.4',
-          port: '1234',
-          type: 'vitural machine',
-          dir: '/root/tmp231'
-        }, {
-          hostname: 'node07',
-          ip: '1.2.3.4',
-          port: '1234',
-          type: 'vitural machine',
-          dir: '/root/restore'
-        }],
+        account:{
+            time: 'Thu, 11 May 2017 01:11:15 GMT',
+            terminal: 'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0',
+            ip: '1.2.3.4',
+            system: 'microsoft windows 7',
+            tries: 2,
+            expiredate: '10 days'
+        },
         top: 40,
         currentRow: null,
         addformshow: false,
@@ -137,6 +113,9 @@
          
       // },
       showEdit: function(){
+        if(!this.currentRow ){
+          return;
+        }
         this.editformshow = true;
       },
        hideEdit: function(){
@@ -274,6 +253,22 @@
           right: -400px;
         }
       }
-     
+          span.icon.icon-edit {
+        color: green;
+    }
+    span.icon.icon-edit.disabled {
+    color: gray;
+    cursor: auto;
+    }
+    span.icon.disabled:hover{
+        font-weight: normal;
+    }
+    span.icon.icon-trash {
+        color: red;
+    }
+    span.icon.icon-trash.disabled {
+        color: gray;
+        cursor: auto;
+    }
 </style>
 

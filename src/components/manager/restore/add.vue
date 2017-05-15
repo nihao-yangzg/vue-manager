@@ -81,9 +81,9 @@
             </div>
         </div>
         <div class="modal" v-if="show_node_modal">
-            <div class="modal-container">
-                <div class="modal-title" style="height: 40px; border-bottom: solid 1px #909090; text-align:center; margin-top: 20px;">选择节点</div>
-                <div class="modal-content" style="border-bottom:solid 1px #909090;">
+            <div class="modal-container animated zoomIn" id="nodemodal">
+                <div class="modal-title" style="height: 40px; border-bottom: solid 1px #dfdfdf; text-align:center; margin-top: 20px; font-size: 18px;">选择节点</div>
+                <div class="modal-content" style="border-bottom:solid 1px #dfdfdf;">
                     <div style="height: 200px; overflow:auto; margin: 10px;">
                         <div v-for="item in cnodes" style="display:inline-block;">
                             <div v-bind:class="{active: currentModalNode==item}" @click="selectModalNode(item)" style=" border:solid 1px #afafaf; margin: 4px; padding: 5px; cursor: pointer;">{{item}}</div>
@@ -101,9 +101,9 @@
            
         </div>
         <div class="modal" v-if="show_backup_point_modal">
-            <div class="modal-container">
-                <div class="modal-title" style="height: 40px; border-bottom: solid 1px #909090; text-align:center; margin-top: 20px;">选择还原点</div>
-                <div class="modal-content" style="border-bottom:solid 1px #909090;">
+            <div class="modal-container animated zoomIn" id="backupmodal">
+                <div class="modal-title" style="height: 40px; border-bottom: solid 1px #dfdfdf; text-align:center; margin-top: 20px; font-size: 18px;">选择还原点</div>
+                <div class="modal-content" style="border-bottom:solid 1px #dfdfdf;">
                     <div style="height: 200px; overflow:auto; margin: 10px;">
                         <div v-for="item in ctimes" style="display:inline-block;">
                             <div v-bind:class="{active: current_modal_backup_point==item}" @click="selectModalBackupPoint(item)" style=" border:solid 1px #afafaf; margin: 4px; padding: 5px; cursor: pointer;">{{item}}</div>

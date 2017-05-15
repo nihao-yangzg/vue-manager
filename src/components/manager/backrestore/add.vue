@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="subtitle">添加策略</div>
+        <div class="subtitle">添加备份</div>
         <div class="form" action="">
             
             <div class="form-control">

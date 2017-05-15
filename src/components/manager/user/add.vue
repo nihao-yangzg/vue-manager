@@ -11,15 +11,11 @@
                 <textarea type="text" name="description" placeholder="description"/>
             </div>
             <div class="form-control">
-            <label for="password">登录密码</label>
-            <input type="password" name="password" placeholder="password">
+            <label for="mailbox">邮箱</label>
+            <input type="text" name="mailbox" placeholder="mailbox"/>
             </div>
             <div class="form-control">
-            <label for="description">所属组</label>
-            <input type="text" name="description" placeholder="description"/>
-            </div>
-            <div class="form-control">
-            <label for="shell">用户权限</label>
+            <label for="shell">角色</label>
             <el-select v-model="value5" multiple placeholder="请选择" >
                 <el-option
                 v-for="item in options"

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="subtitle">添加用户组</div>
+        <div class="subtitle">添加节点</div>
         <div class="form" action="">
             
             <div class="form-control">
@@ -11,6 +11,7 @@
                 <label for="ip">IP地址</label>
                 <input type="text" name="ip" placeholder="ip address">
             </div>
+            
             <div class="form-control">
                 <label for="description">说明</label>
                 <textarea type="text" name="description" placeholder="description"/>

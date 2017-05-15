@@ -31,7 +31,7 @@
                 </li-->
                 <li @click="selectItem($event, 'priority')" v-bind:class="{active: selected=='priority'}">
                     <span class="icon icon-magic"></span>
-                    <span class="item">权限管理</span>
+                    <span class="item">角色管理</span>
                 </li>
                 <li class="ignore">
                     <span>备份管理</span>
@@ -69,6 +69,13 @@
                 <li @click="selectItem($event, 'views')" v-bind:class="{active: selected=='views'}">
                     <span class="icon icon-table"></span>
                     <span class="item">报表管理</span>                    
+                </li>
+                <li class="ignore">
+                    <span>账户管理</span>
+                </li>
+                <li @click="selectItem($event, 'account')" v-bind:class="{active: selected=='account'}">
+                    <span class="icon icon-user"></span>
+                    <span class="item">我的账户</span>
                 </li>
             </ul>
         </div>
@@ -172,14 +179,31 @@
                 // console.log(sblings);
             },
             logout: function(){
-                this.$router.push({path: '/'});
+                let self = this;
+                this.$confirm('确实要注销吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                    }).then(() => {
+                        self.$router.push({path: '/'});
+                    }).catch(() => {
+
+                    });
+                //  this.$msgbox({
+                //     title: '删除提示',
+                //     message: '是否确认删除此条目',
+                //     showCancelButton: true,
+                //     confirmButtonText: '是',
+                //     cancelButtonText: '否'
+                //     });
+                // this.$router.push({path: '/'});
             },
             
         },
         created: function(){
                 let path = this.$route.path;
                 let items = path.split('/')
-                let route = items[items.length-1];
+                let route = items[2];
                 this.selected = route;
                 console.log(this.activeItem);
                 
@@ -225,6 +249,9 @@
         font-size: 14px;
         overflow:hidden;
     
+    }
+    .sidebar:hover{
+        overflow:auto;
     }
     .sidebar ul{
         padding-left: 0;

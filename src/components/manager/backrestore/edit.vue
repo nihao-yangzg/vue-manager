@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="subtitle">用户组编辑</div>
+        <div class="subtitle">备份编辑</div>
         <div class="form" action="">
             <div class="form-control">
             <label for="source">源节点</label>

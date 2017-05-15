@@ -56,7 +56,7 @@
         </el-table>
         <div class="edit" v-bind:style="{position: 'absolute', right: '10px', top: '0px'}">
             <span class="icon icon-edit" v-bind:class="{disabled:!currentRow}"  v-on:click="showEdit"></span>
-            <span class="icon icon-trash" v-bind:class="{disabled:!currentRow}"  ></span>
+            <span class="icon icon-trash" v-bind:class="{disabled:!currentRow}" @click="deleteBackup"  ></span>
             <span class="icon icon-download-alt"></span>
              <span class="icon icon-plus" style="color: green;" v-on:click="showAdd"></span>
         </div>
@@ -169,6 +169,16 @@
       },
       handleCurrentChange(val) {
         this.currentRow = val;
+      },
+      deleteBackup(){
+        this.$confirm('确定要删除该备份作业吗?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+            }).then(() => {
+            }).catch(() => {
+
+            });
       }
     }
   }

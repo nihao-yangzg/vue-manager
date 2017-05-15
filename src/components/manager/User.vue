@@ -19,7 +19,7 @@
             <el-table-column
             property="username"
             label="用户名"
-            width="120">
+            >
           </el-table-column>
           
           
@@ -27,17 +27,16 @@
             property="priority"
             label="角色" >
             <template scope="scope">
-               <el-tag v-for="ii in scope.row.priority"  type="primary" style="margin:5px;">
+               <el-tag v-for="ii in scope.row.roles"  type="primary" style="margin:5px;">
                          {{ii}}
                </el-tag>
             </template>
-            
             
           </el-table-column>
           <el-table-column
             property="mailbox"
             label="邮箱"
-            width="240">
+            >
           </el-table-column>
           <el-table-column
             property="description"
@@ -95,38 +94,40 @@
           username: 'user1',
           description: 'plain user',
           mailbox: 'user1@ttt.com',
-          priority: ['store', 'strategy', 'view', 'log', 'nodes', 'backandrestore'],
+          roles: ['admin'],
           
         }, {
           username: 'user2',
           description: 'administrator',
           mailbox: 'user1@ttt.com',
-          priority: ['user', 'group', 'prority', 'store', 'strategy', 'view', 'log', 'nodes', 'backandrestore']
+          roles: ['admin'],
+
         }, {
           username: 'user3',
           description: 'plain user',
           mailbox: 'user1@ttt.com',
-          priority: ['nodes', 'backandrestore', 'view', 'log']
+          roles: ['admin'],
+
         }, {
           username: 'user2',
           description: 'plain user',
           mailbox: 'user1@ttt.com',
-          priority: ['nodes', 'backandrestore', 'view', 'log']
+          roles: ['admin'],
         }, {
           username: 'user4',
           description: 'plain user',
           mailbox: 'user1@ttt.com',
-          priority: ['nodes', 'backandrestore', 'view', 'log']
+          roles: ['admin'],
         }, {
           username: 'user5',
           description: 'plain user',
           mailbox: 'user1@ttt.com',
-          priority: ['nodes', 'backandrestore', 'view', 'log']
+          roles: ['admin'],
         }, {
           username: 'user6',
           description: 'plain user',
           mailbox: 'user1@ttt.com',
-          priority: ['nodes', 'backandrestore', 'view', 'log']
+          roles: ['admin'],
         }],
         details: {
           username: 'user3', 

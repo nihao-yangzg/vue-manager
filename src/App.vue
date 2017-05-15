@@ -50,4 +50,8 @@ div.el-step__head.is-success.is-text{
 div.el-step__title.is-success{
   color:  rgb(36,147,110);
 }
+
+div.animated{
+    animation-duration: 0.5s;
+}
 </style>

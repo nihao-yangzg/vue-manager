@@ -38,8 +38,8 @@
                 
                 
             </div>
-            <!--div class="form-control">
-                <label for="shell">用户组 <span class="icon icon-external-link" style="color:rgb(36, 147, 110); cursor: pointer;"></span></label>
+            <div class="form-control">
+                <label for="shell">权限</span></label>
                     <div class="forselect">
                         <el-tag v-for="(ii,index) in group_options"  type="gray" style="margin:5px; cursor: pointer;">
                             <span @click="groupSelect(ii, index)">
@@ -63,7 +63,7 @@
                     </div>
                 
                 
-            </div-->
+            </div>
             <div class="bottom">
             <span class="button" @click="hideEdit">取消</span>
             <span class="button submit">提交</span>
@@ -111,33 +111,36 @@
                 }],
                
                 group_options : [{
-                    value: '选项1',
-                    label: '黄金糕'
-                    }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                    }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                    }, {
-                    value: '选项4',
-                    label: '龙须面'
-                    }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                    }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                    }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                    }, {
-                    value: '选项4',
-                    label: '龙须面'
-                    }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                    }],
+                    value: 'user1',
+                    label: 'user1',
+                }, {
+                    value: 'user2',
+                    label: 'user2'
+                },{
+                    value: 'user3',
+                    label: 'user3'
+                },{
+                    value: 'user4',
+                    label: 'user4'
+                },{
+                    value: 'user5',
+                    label: 'user5'
+                },{
+                    value: 'user6',
+                    label: 'user6'
+                },{
+                    value: 'user7',
+                    label: 'user7'
+                },{
+                    value: 'user8',
+                    label: 'user8'
+                },{
+                    value: 'user9',
+                    label: 'user9'
+                },{
+                    value: 'user10',
+                    label: 'user10'
+                }],
                 value5: [],
                 priority_selected: [],
                 group_selected: [],

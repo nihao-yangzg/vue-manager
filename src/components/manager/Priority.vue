@@ -1,7 +1,7 @@
 <template>
 <div id="group">
     <div class="title">
-        <span>权限管理</span>
+        <span>角色管理</span>
         <div id="search">
           <span class="icon icon-search"></span>
           <input type="text" placeholder="search"/>
@@ -50,7 +50,7 @@
         </el-table>
         <div class="edit" v-bind:style="{position: 'absolute', right: '10px', top: '0px'}">
             <span class="icon icon-edit" style="color: green;" v-on:click="showEdit"></span>
-            <span class="icon icon-trash" style="color: red;" ></span>
+            <span class="icon icon-trash" style="color: red;" @click="deletePriority" ></span>
             <span class="icon icon-download-alt"></span>
              <span class="icon icon-plus" style="color: green;" v-on:click="showAdd"></span>
         </div>
@@ -137,6 +137,16 @@
       handleCurrentChange(val) {
         this.currentRow = val;
       },
+      deletePriority(){
+         this.$confirm('确定要删除该角色绑定吗?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+            }).then(() => {
+            }).catch(() => {
+
+            });
+      }
     }
   }
 </script>

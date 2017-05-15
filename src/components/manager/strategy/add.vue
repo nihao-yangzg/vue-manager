@@ -1,9 +1,16 @@
 <template>
     <div>
-        <div class="subtitle">添加用户组</div>
+        <div class="subtitle">添加策略</div>
         <div class="form" action="">
+
             <div class="form-control">
-                <label for="cicle">周期</label>
+                <label for="name">策略名</label>
+                <input type="text" name="name" placeholder="请输入策略名">
+               
+                
+            </div>
+            <div class="form-control">
+                <label for="object">对象</label>
                 <el-select v-model="value5" placeholder="请选择">
                     <el-option
                     v-for="item in options"
@@ -15,14 +22,20 @@
             <div class="form-control">
                 <label for="strategy">策略</label>
                 <input type="text" name="strategy" placeholder="请输入策略">
-                <div style="font-size:10px; margin-left: 90px;">如 * * 12:00:00 代表每天12:00:00执行<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp; 4th * 12:00:00 代表每月4日12:00:00执行<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp; * Mon 12:00:00 代表每周一12:00:00执行</div>
+                <div style="font-size:10px; margin-left: 90px;">如 * * 12:00:00 代表每天12:00:00执行</div>
+                
+            </div>
+
+            
+            <div class="form-control">
+                <label for="media">介质</label>
+                <input type="text" name="media" placeholder="请输入介质">
                 
             </div>
             <div class="form-control">
-                <label for="description">策略描述</label>
-                <textarea type="text" name="description" placeholder="description"/>
+                <label for="days">保存天数</label>
+                <input type="text" name="days" placeholder="请输入策略">
+                
             </div>
             <div class="bottom">
             <span class="button" @click="hideEdit">取消</span>
@@ -39,19 +52,16 @@
             return {
                 options: [{
                    value: '选项1',
-                    label: 'Month'
+                    label: 'file'
                     }, {
                     value: '选项2',
-                    label: 'Week'
+                    label: 'database'
                     }, {
                     value: '选项3',
-                    label: 'Day'
+                    label: 'system'
                     }, {
                     value: '选项4',
-                    label: 'Hour'
-                    }, {
-                    value: '选项5',
-                    label: 'Minute'
+                    label: 'column'
                     }],
                 value5: null,
             }

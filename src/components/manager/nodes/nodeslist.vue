@@ -1,7 +1,7 @@
 <template>
-<div id="group">
+<div id="nodeslist">
     <div class="title">
-        <span>存储管理</span>
+        <span>节点管理</span>
         <div id="search">
           <span class="icon icon-search"></span>
           <input type="text" placeholder="search"/>
@@ -20,24 +20,25 @@
             property="hostname"
             label="节点名"
             >
+            <template scope='scope'>
+                <span @click="details(scope.row.hostname)" style="color: rgb(36,147,110); cursor: pointer;">{{scope.row.hostname}}</span>
+            </template>
           </el-table-column>
           <el-table-column
             property="ip"
             label="ip地址"
             >
           </el-table-column>
-          <el-table-column
-            property="port"
-            label="端口">
+         
           </el-table-column>
           <el-table-column
-            property="dir"
-            label="目录">
+            property="description"
+            label="说明">
           </el-table-column>
         </el-table>
         <div class="edit" v-bind:style="{position: 'absolute', right: '10px', top: '0px'}">
             <span class="icon icon-edit" style="color: green;" v-on:click="showEdit"></span>
-            <span class="icon icon-trash" style="color: red;" ></span>
+            <span class="icon icon-trash" style="color: red;" @click="deleteNode"></span>
             <span class="icon icon-download-alt"></span>
              <span class="icon icon-plus" style="color: green;" v-on:click="showAdd"></span>
         </div>
@@ -60,8 +61,8 @@
 </template>
 
 <script>
-  import FormEdit from './store/edit'
-  import FormAdd from './store/add'
+  import FormEdit from './edit'
+  import FormAdd from './add'
   export default {
     components:{
       FormEdit,
@@ -72,46 +73,47 @@
         tableData3: [{
           hostname: 'node01',
           ip: '1.2.3.4',
-          type: 'physical node',
           port: '1234',
-          dir: '/root/tmp'
+          dir: '/root/nfs/',
+          description: 'physical node, httpd server',
 
         }, {
           hostname: 'node02',
           ip: '1.2.3.4',
           port: '1234',
-          type: 'SAN',
-          dir: '/root/backup'
+          dir: '/root/nfs/',
+          description: 'vitural machine, nginx server',
         }, {
           hostname: 'node03',
           ip: '1.2.3.4',
           port: '1234',
-          type: 'vitural machine',
+          dir: '/root/nfs/',
+          description: 'vitural machine, ntp server',
           dir: '/'
         }, {
           hostname: 'node04',
           ip: '1.2.3.4',
           port: '1234',
-          type: 'NAS',
-          dir: '/root/tmp'
+          dir: '/root/nfs/',
+          description: 'rabbitmq server',
         }, {
           hostname: 'node05',
           ip: '1.2.3.4',
           port: '1234',
-          type: 'physical node',
-          dir: '/home/node'
+          dir: '/root/nfs/',
+          description: 'physical node, storage server',
         }, {
           hostname: 'node06',
           ip: '1.2.3.4',
           port: '1234',
-          type: 'vitural machine',
-          dir: '/root/tmp231'
+          dir: '/root/nfs/',
+          description: 'vitural machine, idle',
         }, {
           hostname: 'node07',
           ip: '1.2.3.4',
           port: '1234',
-          type: 'vitural machine',
-          dir: '/root/restore'
+          dir: '/root/nfs/',
+          description: 'vitural machine, idle',
         }],
         top: 40,
         currentRow: null,
@@ -150,17 +152,32 @@
       },
       handleCurrentChange(val) {
         this.currentRow = val;
+      },
+      deleteNode() {
+        this.$confirm('确定要删除该节点吗?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+            }).then(() => {
+            }).catch(() => {
+
+            });
+      },
+      details: function(item){
+          console.log(item);
+          let route = this.$route.path;
+          this.$router.push(route + '/details?node=' + item);
       }
     }
   }
 </script>
 <style scoped>
-    #group{
+    #nodeslist{
         width: 100%;
         text-align: left;
        
     }
-    #group .title{
+    #nodeslist .title{
         height: 30px;
         line-height:30px;
         padding: 10px 20px;

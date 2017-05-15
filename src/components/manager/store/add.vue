@@ -12,9 +12,10 @@
                 <input type="text" name="ip" placeholder="ip address">
             </div>
             <div class="form-control">
-                <label for="type">节点类型</label>
-                <input type="text" name="type" placeholder="server type"/>
+                <label for="port">端口</label>
+                <input type="text" name="port" placeholder="port"/>
             </div>
+            
             <div class="form-control">
                 <label for="dir">目录</label>
                 <input type="text" name="dir" placeholder="storage dir">
